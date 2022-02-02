@@ -1,1 +1,47 @@
-
+#include <stdio.h>
+int main()
+{
+   int x;
+   int n[x],i;
+   char S[x];
+   int minPermision;
+   int count_access = 0;
+   int count_denied = 0;
+   printf("Enter the number of the users:\n");
+   scanf("%d",&x);
+   
+   for (i=0; i<x; i++)
+   {
+    scanf("%d",&n[i]);
+    }
+    printf("\n");
+    printf("USERS:\n");
+   for (i=0; i<x; i++)
+    {
+        printf("%d\t",n[i]);
+        printf("\t");
+    }
+    printf("\n\n");
+    printf("Enter the minimum permision:\n");
+    scanf("%d",&minPermision); 
+    for(i=0; i< x; i++)
+    {
+    if (n[i] >= minPermision)
+    {
+    //printf("A");
+    S[i]='A';
+    count_access+=1;
+    }
+    else
+    {
+    //printf("D");
+    S[i]='D';
+    count_denied+=1;
+    }
+    }
+    for(i=0; i< x; i++)
+    printf("%c", S[i]);
+    printf("\nAccess granted:%d", count_access);
+    printf("\nAccess denied:%d", count_denied);
+	
+}
