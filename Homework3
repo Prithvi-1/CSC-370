@@ -1,0 +1,72 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner sc= new Scanner(System.in);   
+System.out.print("The sorted Strings are :");
+System.out.print("\n");
+String dirs1[] = {"/","/usr/","/usr/local/","/usr/local/bin/","/games/","/games/snake/","/homework/","/temp/downloads/"};
+String dirs2[] = {"/usr/","/usr/local/","/bin/","/usr/local/bin/","/usr/bin/ ","/bin/local/","/bin/local/"};
+String dirs3[] = {"/","/a/","/b/","/c/","/d/","/e/","/f/","/g/"};
+String dirs4[] = {"/","/a/","/b/","/c/","/d/","/e/","/f/","/g/","/a/a/","/b/g/c/","/g/f/"};
+String dirs5[] =  {"/a/b/c/d/e/f/g/h/i/j/k/l/m/n/","/o/p/q/r/s/t/u/v/w/x/y/z/ "};
+
+System.out.print("[");
+sort(dirs1);
+System.out.print("[");
+sort(dirs2);
+System.out.print("[");
+sort(dirs3);
+System.out.print("[");
+sort(dirs4);
+System.out.print("[");
+sort(dirs5);
+
+}
+static void sort(String dirs[])
+{
+int l = dirs.length;
+for(int i = 0; i < l; ++i)
+System.out.print("\""+dirs[i]+"\",");
+System.out.print("]\n");
+
+int dir_dept[]= new int[l];
+
+ for(int i = 0; i < l-1; ++i) {  
+         for (int j = i + 1; j < l; ++j) {  
+            if (dirs[i].compareTo(dirs[j]) > 0) {  
+               String temp = dirs[i];  
+               dirs[i] = dirs[j];  
+               dirs[j] = temp;  
+            }  
+         }  
+      }  
+       for (int i = 0;i<l;i++)
+{
+    dir_dept[i]=0;
+    for (int j = 0; j<dirs[i].length(); j++)
+    {
+        if (dirs[i].charAt(j) == '/')
+         {
+             dir_dept[i]++;
+         }
+    }
+}
+        for (int i = 0; i < l-1; i++)
+            for (int j = 0; j < l-i-1; j++)
+                if (dir_dept[j] > dir_dept[j+1])
+                {
+                    int temp = dir_dept[j];
+                    dir_dept[j] = dir_dept[j+1];
+                    dir_dept[j+1]= temp;
+                    String tmp = dirs[j];
+                    dirs[j] = dirs[j+1];
+                    dirs[j+1] = tmp;
+                }
+            System.out.print("[");
+                for (int i = 0;i<l;i++)
+	            System.out.print(dirs[i]+",");
+	            System.out.print("]\n\n");
+
+	}
+}
