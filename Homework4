@@ -1,0 +1,63 @@
+def DrawTree(parents, names):
+    tree = {}
+    treeLines = []
+    for i in range(len(parents)):
+        if parents[i] == -1:
+            tree[names[i]] = []
+            FindChildren(tree, i, parents, names)
+
+    for f in tree:
+        treeLines.append("+-" + f)
+        GetChildren(tree[f], treeLines, "  ")
+
+    return treeLines
+
+def FindChildren(tree, parent, parents, names):
+    for i in range(len(parents)):
+        if parents[i] == parent:
+            childTree = {names[i]: []}
+            tree[names[parent]].append(childTree)
+            FindChildren(childTree, i, parents, names)
+
+def GetChildren(tree, treeLines, prepend):
+    numFolders = len(tree)
+    hasSiblings = numFolders > 1
+
+    for i in range(numFolders):
+        d = tree[i]
+        for f in d:
+            treeLines.append(prepend + "+-" + f)
+            if len(d[f]) > 0:
+                childPrepend = "  "
+                if hasSiblings and i < numFolders - 1:
+                    childPrepend = "| "
+                GetChildren(d[f], treeLines, prepend + childPrepend)
+    return treeLines
+examples = [
+    (
+        [-1, 0, 1, 1, 0, 0, 5, 5],
+        ["Root", "SubB", "LEAF1", "LEAF2", "LEAF3", "SubA", "LEAF4", "LEAF5"]
+    ),
+    (
+        [1, 2, 3, 4, 5, 6, -1],
+        ["A", "B", "C", "D", "E", "F", "G"]
+    ),
+    (
+        [1, 2, 3, 4, 6, 6, -1],
+        ["A", "B", "C"," D", "E", "F", "G"]
+    ),
+(
+        [6, 2, 3, 4, 5, 6, -1],
+        ["A", "B", "C", "D", "E", "F", "G"]
+    ),
+    (
+        [-1, 0, 1, 1, 2, 2, 3, 3, 0, 8, 8, 9, 9, 10, 10],
+        ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"]
+    )
+]
+
+for example in examples:
+    tree = DrawTree(example[0], example[1])
+    for f in tree:
+        print(f)
+    print("-------------------------")
